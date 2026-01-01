@@ -9,7 +9,7 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 import sys
 import os
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 # Get the directory containing setup.py
 here = os.path.abspath(os.path.dirname(__file__))
