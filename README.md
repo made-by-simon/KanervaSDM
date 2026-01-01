@@ -6,10 +6,10 @@ A high-performance C++ implementation of Sparse Distributed Memory (SDM) with Py
 
 Sparse Distributed Memory is a cognitive model that stores information in a distributed manner across many locations. This implementation provides:
 
-- Fast C++ core with Python bindings via pybind11
-- Hamming distance-based activation for memory retrieval
-- Support for arbitrary address and memory dimensions
-- Reproducible results with seeded random initialization
+- Fast C++ core with Python bindings via pybind11.
+- Hamming distance-based activation for memory retrieval.
+- Support for arbitrary address and memory dimensions.
+- Reproducible results with seeded random initialization.
 
 ## Installation
 
@@ -29,17 +29,17 @@ pip install -e ".[dev]"
 
 ### Requirements
 
-- Python >= 3.7
-- C++11 compatible compiler
-- pybind11 >= 2.6.0
+- Python >= 3.7.
+- C++11 compatible compiler.
+- pybind11 >= 2.6.0.
 
 ## Quick Start
 
 ```python
-from kanerva_sdm import KanervaSDM
+import kanerva_sdm
 
 # Initialize SDM with 100-dimensional addresses and memories
-sdm = KanervaSDM(
+sdm = kanerva_sdm.KanervaSDM(
     address_dimension=100,
     memory_dimension=100,
     num_locations=1000,
@@ -79,14 +79,14 @@ KanervaSDM(
 ```
 
 **Parameters:**
-- `address_dimension`: Length of address vectors (N)
-- `memory_dimension`: Length of memory vectors (U)
-- `num_locations`: Number of hard locations (M)
-- `hamming_threshold`: Hamming distance threshold for activation (H)
-- `random_seed`: Seed for reproducible random generation
+- `address_dimension`: Length of address vectors (N).
+- `memory_dimension`: Length of memory vectors (U).
+- `num_locations`: Number of hard locations (M).
+- `hamming_threshold`: Hamming distance threshold for activation (H).
+- `random_seed`: Seed for reproducible random generation.
 
 **Raises:**
-- `ValueError`: If any dimension or threshold is non-positive
+- `ValueError`: If any dimension or threshold is non-positive.
 
 #### Methods
 
@@ -99,11 +99,11 @@ sdm.write([0, 1, 0, 1], [1, 1, 0, 0])
 ```
 
 **Parameters:**
-- `address`: Binary list of length `address_dimension`
-- `memory`: Binary list of length `memory_dimension`
+- `address`: Binary list of length `address_dimension`.
+- `memory`: Binary list of length `memory_dimension`.
 
 **Raises:**
-- `ValueError`: If vectors have incorrect size or contain non-binary values
+- `ValueError`: If vectors have incorrect size or contain non-binary values.
 
 ---
 
@@ -116,14 +116,14 @@ recalled = sdm.read([0, 1, 0, 1])
 ```
 
 **Parameters:**
-- `address`: Binary list of length `address_dimension`
+- `address`: Binary list of length `address_dimension`.
 
 **Returns:**
-- Binary list of length `memory_dimension`
-- Returns all zeros if no locations are activated
+- Binary list of length `memory_dimension`.
+- Returns all zeros if no locations are activated.
 
 **Raises:**
-- `ValueError`: If address has incorrect size or contains non-binary values
+- `ValueError`: If address has incorrect size or contains non-binary values.
 
 ---
 
@@ -137,39 +137,39 @@ sdm.erase_memory()
 
 #### Properties
 
-- `address_dimension`: Length of address vectors
-- `memory_dimension`: Length of memory vectors
-- `num_locations`: Number of hard locations
-- `hamming_threshold`: Activation threshold
-- `memory_count`: Number of stored memories
+- `address_dimension`: Length of address vectors.
+- `memory_dimension`: Length of memory vectors.
+- `num_locations`: Number of hard locations.
+- `hamming_threshold`: Activation threshold.
+- `memory_count`: Number of stored memories.
 
 ## How It Works
 
 ### Core Concepts
 
-1. **Hard Locations (A)**: Random binary vectors that serve as reference points in the address space
-2. **Memory Matrix (C)**: Counters that accumulate memory values at each location
-3. **Activation**: Locations within Hamming distance H of the query address are activated
-4. **Polar Encoding**: Binary values {0,1} are converted to {-1,+1} for storage
+1. **Hard Locations (A)**: Random binary vectors that serve as reference points in the address space.
+2. **Memory Matrix (C)**: Counters that accumulate memory values at each location.
+3. **Activation**: Locations within Hamming distance H of the query address are activated.
+4. **Polar Encoding**: Binary values {0,1} are converted to {-1,+1} for storage.
 
 ### Write Operation
 
-1. Find all hard locations within Hamming distance H of the target address
-2. Convert memory vector from binary to polar form
-3. Add polar values to the memory counters at activated locations
+1. Find all hard locations within Hamming distance H of the target address.
+2. Convert memory vector from binary to polar form.
+3. Add polar values to the memory counters at activated locations.
 
 ### Read Operation
 
-1. Find all hard locations within Hamming distance H of the target address
-2. Sum memory counters across activated locations
-3. Threshold summation to produce binary output (>= 0 → 1, < 0 → 0)
+1. Find all hard locations within Hamming distance H of the target address.
+2. Sum memory counters across activated locations.
+3. Threshold summation to produce binary output (>= 0 → 1, < 0 → 0).
 
 ## Examples
 
 ### Basic Usage
 
 ```python
-from kanerva_sdm import KanervaSDM
+import kanerva_sdm
 
 # Create SDM instance
 sdm = kanerva_sdm.KanervaSDM(
@@ -199,7 +199,7 @@ print(f"Recalled: {recalled[:10]}...")  # First 10 elements
 ### Testing Recall Accuracy
 
 ```python
-from kanerva_sdm import KanervaSDM
+import kanerva_sdm
 
 sdm = kanerva_sdm.KanervaSDM(100, 100, 1000, 37, random_seed=42)
 
@@ -217,7 +217,7 @@ print(f"Recall accuracy: {accuracy * 100:.1f}%")
 ### Experimenting with Parameters
 
 ```python
-from kanerva_sdm import KanervaSDM
+import kanerva_sdm
 
 # Test different thresholds
 for threshold in [30, 35, 40, 45]:
@@ -245,10 +245,10 @@ pytest tests/test_kanerva_sdm.py::TestKanervaSDM::test_write_and_read
 
 ## Performance Considerations
 
-- C++ implementation provides significant speedup over pure Python
-- Memory operations are O(M × N) where M is `num_locations` and N is `address_dimension`
-- Larger Hamming thresholds activate more locations, increasing computation
-- Optimal threshold is typically around 40-45% of `address_dimension`
+- C++ implementation provides significant speedup over pure Python.
+- Memory operations are O(M × N) where M is `num_locations` and N is `address_dimension`.
+- Larger Hamming thresholds activate more locations, increasing computation.
+- Optimal threshold is typically around 40-45% of `address_dimension`.
 
 ## Project Structure
 
@@ -295,11 +295,11 @@ Simon Wong (smw2@ualberta.ca)
 
 Contributions are welcome. Please:
 
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
+1. Fork the repository.
+2. Create a feature branch.
+3. Add tests for new functionality.
+4. Ensure all tests pass.
+5. Submit a pull request.
 
 ## Issues
 
