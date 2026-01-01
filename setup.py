@@ -21,7 +21,7 @@ ext_modules = [
         include_dirs=[
             os.path.join(here, "include"),
         ],
-        define_macros=[("VERSION_INFO", __version__)],
+        define_macros=[("VERSION_INFO", f'"{__version__}"')],
         cxx_std=11,
     ),
 ]
