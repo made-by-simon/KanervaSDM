@@ -14,16 +14,16 @@ class TestKanervaSDM:
     def test_initialization(self):
         """Test SDM initialization with valid parameters."""
         sdm = kanerva_sdm.KanervaSDM(
-            address_dimension=256,
-            memory_dimension=128,
-            num_locations=1000,
-            activation_threshold=103,
+            address_dimension=100,
+            memory_dimension=100,
+            num_locations=10000,
+            hamming_threshold=37,
             random_seed=42
         )
-        assert sdm.address_dimension == 256
-        assert sdm.memory_dimension == 128
-        assert sdm.num_locations == 1000
-        assert sdm.activation_threshold == 103
+        assert sdm.address_dimension == 100
+        assert sdm.memory_dimension == 100
+        assert sdm.num_locations == 10000
+        assert sdm.hamming_threshold == 37
         assert sdm.memory_count == 0
 
     def test_invalid_dimensions(self):
@@ -48,7 +48,7 @@ class TestKanervaSDM:
             address_dimension=256,
             memory_dimension=128,
             num_locations=1000,
-            activation_threshold=103,
+            hamming_threshold=103,
             random_seed=42
         )
         

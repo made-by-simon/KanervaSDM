@@ -20,78 +20,62 @@ PYBIND11_MODULE(_kanerva_sdm, m) {
              py::arg("num_locations"),
              py::arg("hamming_threshold"),
              py::arg("random_seed") = 42,
-             R"pbdoc(
-                Initialize the Kanerva Sparse Distributed Memory.
-
-                Parameters
-                ----------
-                address_dimension : int
-                    Length of address vectors (N).
-                memory_dimension : int
-                    Length of memory vectors (U).
-                num_locations : int
-                    Number of hard locations (M).
-                hamming_threshold : int
-                    Hamming distance threshold for activation (H).
-                random_seed : int, optional
-                    Seed for reproducible random generation of hard locations (default: 42).
-
-                Raises
-                ------
-                ValueError
-                    If any dimension or threshold is non-positive.
-             )pbdoc")
+             "Initialize the Kanerva Sparse Distributed Memory.\n\n"
+             "Parameters\n"
+             "----------\n"
+             "address_dimension : int\n"
+             "    Length of address vectors (N).\n"
+             "memory_dimension : int\n"
+             "    Length of memory vectors (U).\n"
+             "num_locations : int\n"
+             "    Number of hard locations (M).\n"
+             "hamming_threshold : int\n"
+             "    Hamming distance threshold for activation (H).\n"
+             "random_seed : int, optional\n"
+             "    Seed for reproducible random generation of hard locations (default: 42).\n\n"
+             "Raises\n"
+             "------\n"
+             "ValueError\n"
+             "    If any dimension or threshold is non-positive.")
         
         .def("write", &KanervaSDM::write,
              py::arg("address"),
              py::arg("memory"),
-             R"pbdoc(
-                Write a memory to an address.
-
-                Parameters
-                ----------
-                address : list of int
-                    Target address vector (x) of size address_dimension.
-                    Must contain only 0s and 1s.
-                memory : list of int
-                    Memory vector (w) of size memory_dimension.
-                    Must contain only 0s and 1s.
-
-                Raises
-                ------
-                ValueError
-                    If address or memory vectors have incorrect size or contain non-binary values.
-             )pbdoc")
+             "Write a memory to an address.\n\n"
+             "Parameters\n"
+             "----------\n"
+             "address : list of int\n"
+             "    Target address vector (x) of size address_dimension.\n"
+             "    Must contain only 0s and 1s.\n"
+             "memory : list of int\n"
+             "    Memory vector (w) of size memory_dimension.\n"
+             "    Must contain only 0s and 1s.\n\n"
+             "Raises\n"
+             "------\n"
+             "ValueError\n"
+             "    If address or memory vectors have incorrect size or contain non-binary values.")
         
         .def("read", &KanervaSDM::read,
              py::arg("address"),
-             R"pbdoc(
-                Read a memory from an address.
-
-                Parameters
-                ----------
-                address : list of int
-                    Target address vector (x) of size address_dimension.
-                    Must contain only 0s and 1s.
-
-                Returns
-                -------
-                list of int
-                    Recalled memory vector (z) of size memory_dimension.
-                    Returns all zeros if no locations are activated.
-
-                Raises
-                ------
-                ValueError
-                    If address vector has incorrect size or contains non-binary values.
-             )pbdoc")
+             "Read a memory from an address.\n\n"
+             "Parameters\n"
+             "----------\n"
+             "address : list of int\n"
+             "    Target address vector (x) of size address_dimension.\n"
+             "    Must contain only 0s and 1s.\n\n"
+             "Returns\n"
+             "-------\n"
+             "list of int\n"
+             "    Recalled memory vector (z) of size memory_dimension.\n"
+             "    Returns all zeros if no locations are activated.\n\n"
+             "Raises\n"
+             "------\n"
+             "ValueError\n"
+             "    If address vector has incorrect size or contains non-binary values.")
         
         .def("erase_memory", &KanervaSDM::erase_memory,
-             R"pbdoc(
-                Erase memory matrix (C), but preserve address matrix (A).
-
-                This resets all memory counters to zero while keeping the hard locations intact.
-             )pbdoc")
+             "Erase memory matrix (C), but preserve address matrix (A).\n\n"
+             "This resets all memory counters to zero while keeping the hard locations intact.")
         
         .def_property_readonly("address_dimension", &KanervaSDM::get_address_dimension,
                               "Length of address vectors (N).")
