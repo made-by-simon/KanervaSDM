@@ -212,3 +212,4 @@ __pycache__/
 build/
 scratch.py
 src\KanervaSDM.egg-info
+dist
