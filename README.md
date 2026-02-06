@@ -286,21 +286,3 @@ This implementation is based on:
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
-
-## Author
-
-Simon Wong (smw2@ualberta.ca)
-
-## Contributing
-
-Contributions are welcome. Please:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Add tests for new functionality.
-4. Ensure all tests pass.
-5. Submit a pull request.
-
-## Issues
-
-Report bugs and request features at [GitHub Issues](https://github.com/made-by-simon/KanervaSDM/issues).
